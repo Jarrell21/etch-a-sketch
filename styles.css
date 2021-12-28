@@ -1,13 +1,27 @@
-.container {
-  width: 500px;
-  height: 500px;
-  margin: 0 auto;
-  display: flex;
-  flex-wrap: wrap;
+:root {
+  --grid-rows: 1;
+  --grid-cols: 1;
 }
+
+.container {
+  width: 700px;
+  height: 700px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(var(--grid-cols), 1fr);
+  grid-template-rows: repeat(var(--grid-rows), 1fr);
+  border: solid black 1px;
+}
+
+.grid-item {
+  border: solid #ddd 1px;
+  text-align: center;
+}
+
 .title {
   text-align: center;
   font-size: 3em;
+  margin-bottom: 20px;
 }
 
 .btns {
@@ -17,6 +31,17 @@
   padding: 10px;
 }
 
-.box {
+.btns > button {
+  padding: 5px;
+  width: 200px;
+}
+
+.column {
   background-color: green;
+  border: solid black 1px;
+}
+
+.row {
+  background-color: yellow;
+  border: solid black 1px;
 }
