@@ -13,11 +13,6 @@
   border: solid black 1px;
 }
 
-.grid-item {
-  border: solid #ddd 1px;
-  text-align: center;
-}
-
 .title {
   text-align: center;
   font-size: 3em;
@@ -26,6 +21,7 @@
 
 .btns {
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-evenly;
   margin: 20px auto;
   padding: 10px;
@@ -34,14 +30,4 @@
 .btns > button {
   padding: 5px;
   width: 200px;
-}
-
-.column {
-  background-color: green;
-  border: solid black 1px;
-}
-
-.row {
-  background-color: yellow;
-  border: solid black 1px;
 }
