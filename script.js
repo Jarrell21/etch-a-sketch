@@ -1,109 +1,101 @@
 const container = document.querySelector('.container');
-const colorModeBtn = document.querySelector('#color-mode');
-const randomColor = document.querySelector('#random-color');
+const gridItems = document.querySelector('.container').childNodes;
+const blackBtn = document.querySelector('#black');
+const colorPicker = document.querySelector('#colorpicker');
 const rainbowModeBtn = document.querySelector('#rainbow-mode');
 const eraserBtn = document.querySelector('#eraser');
 const clearBtn = document.querySelector('#clear');
 const showGridBtn = document.querySelector('#show-grid');
 const gridSizeBtn = document.querySelector('#grid-size');
 
-colorModeBtn.addEventListener('click', () => changeColor('black'));
+let currentMode = 'black';
+let currentSize = 16;
 
-// Create a function that generates a random color for every click
-randomColor.addEventListener('click', () => {
-    changeColor(`rgb(${randomNum()}, 
-    ${randomNum()},  
-    ${randomNum()})`);
-});
-
-// Create a function that 'draws' in the grid with random colors
-rainbowModeBtn.addEventListener('click', () =>{
-    cells.forEach(cell => {
-        cell.addEventListener('mouseenter', () =>{
-            cell.style.background = `rgb(${randomNum()}, 
-            ${randomNum()},  
-            ${randomNum()})`;
-        });
-        
-    });
-});
-
-eraserBtn.addEventListener('click', () => changeColor(''));
-
-// Create a function that 'clears' the grid
-clearBtn.addEventListener('click', () =>{
-    cells.forEach(cell => {
-        cell.style.background = '';
-    });
-})
-
+blackBtn.addEventListener('click', ()=> currentMode='black');
+colorPicker.addEventListener('click', ()=> currentMode='colorpicker');
+rainbowModeBtn.addEventListener('click', ()=> currentMode='rainbow-mode');
+eraserBtn.addEventListener('click', ()=> currentMode='eraser');
+clearBtn.addEventListener('click', clearGrid);
 showGridBtn.addEventListener('click', showHideGridLines);
+gridSizeBtn.addEventListener('click', changeGridSize);
 
-//Create a function that makes a grid on the given number
+//Create a function that makes a grid with a given size
 function makeGrid(size){
+    size = size || 16;
     container.style.setProperty('--grid-rows', size);
     container.style.setProperty('--grid-cols', size);
     for (i = 0; i < (size * size); i++){
         let cell = document.createElement('div');
+        cell.addEventListener('mouseover', changeColor);
         container.appendChild(cell).className = 'grid-item';
     };
 };
-makeGrid(16);
-const cells = document.querySelectorAll('.grid-item');
+makeGrid();
 
-// Create a function that allows the user to change the grid size *
-function newGrid(){
-    let userInputGrid = prompt('Enter size: ');
-    let userInputInt = parseInt(userInputGrid);
-
-    if(userInputInt > 100 ||
-        userInputInt <= 0 ||
-        isNaN(userInputInt)){
-        alert('Enter positive integer. Maximum size of 100');
+// Create a function that changes bgcolor of the grid items on mouseover
+function changeColor(){
+    if(currentMode === 'black'){
+        this.style.background = 'black';
     }
-    else{
-        alert('Done :)');
-        container.innerHTML = '';
-        makeGrid(userInputInt);
+    else if(currentMode === 'colorpicker'){
+        this.style.background = colorPicker.value;
     }
-}
-
-gridSizeBtn.addEventListener('click', newGrid);
-
-// Create a function that changes bgcolor of the grid items on mouseenter
-function changeColor(color){
-    cells.forEach(cell => {
-        cell.addEventListener('mouseenter', () => {
-            cell.style.background = color;
-        });
-    });
+    else if(currentMode === 'rainbow-mode'){
+        this.style.background = `rgb(${randomNum()}, ${randomNum()},
+        ${randomNum()})`;
+    }
+    else if(currentMode === 'eraser'){
+        this.style.background = '';
+    }
+    
 }
 
 // Create a function that generates random number between 0 and 255
 function randomNum(){
-    return 0 + Math.floor(Math.random() * (255 - 0 + 1));
+    return Math.floor(Math.random() * (255 + 1));
+}
+
+
+// Create a function that clears the grid
+function clearGrid(){
+    gridItems.forEach(cell => {
+        cell.style.background = '';
+    })
 }
 
 // Create a function that shows and hides the grid lines
 function showHideGridLines(){
     if(showGridBtn.textContent === 'Show Grid Lines'){
-        cells.forEach(cell => {
+        gridItems.forEach(cell => {
             cell.style.border = 'solid #ddd 1px';
         });
         showGridBtn.textContent = 'Hide Grid Lines';
     }
     else if(showGridBtn.textContent === 'Hide Grid Lines'){
-        cells.forEach(cell => {
+        gridItems.forEach(cell => {
             cell.style.border = '';
         });
         showGridBtn.textContent = 'Show Grid Lines';
     }
 }
 
-
-
-
-
+// Create a function that allows the user to change the grid size *
+function changeGridSize(){
+    let newSize = prompt(`Enter positive integer. Maximum of 100 
+            (Current size: ${currentSize}x${currentSize})`);
+    let newSizeInt = parseInt(newSize);
+    if(newSizeInt > 100 || newSizeInt <= 0 || isNaN(newSizeInt)){
+            alert('Enter positive integer. Maximum of 100');
+            return;
+        }
+    
+    alert("Changed grid size");
+    while(container.firstChild) {
+        container.removeChild(container.firstChild)
+    };
+    currentSize = newSizeInt;
+    makeGrid(newSizeInt);
+}
 
 
 
