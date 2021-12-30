@@ -9,24 +9,31 @@
     <script src="script.js" defer></script>
   </head>
   <body>
-    <div class="title">Etch-a-Sketch</div>
-    <div class="container"></div>
-    <div class="btns">
-      <button id="black">Black</button>
-      <div>
-        <label for="colorpicker">Change Color</label>
-        <input
-          type="color"
-          name="colorpicker"
-          id="colorpicker"
-          value="#000000"
-        />
+    <header>Etch-a-Sketch</header>
+    <div class="main">
+      <div class="btns">
+        <button id="black">Black</button>
+        <div id="change-color">
+          <label for="colorpicker">Change Color</label>
+          <div class="wrapper">
+            <input
+              type="color"
+              name="colorpicker"
+              id="colorpicker"
+              value="#000000"
+            />
+          </div>
+        </div>
+        <button id="rainbow-mode">Rainbow Mode</button>
+        <button id="eraser">Eraser</button>
+        <button id="clear">Clear</button>
+        <button id="show-grid">Show Grid Lines</button>
+        <button id="grid-size">Change Grid Size</button>
       </div>
-      <button id="rainbow-mode">Rainbow Mode</button>
-      <button id="eraser">Eraser</button>
-      <button id="clear">Clear</button>
-      <button id="show-grid">Show Grid Lines</button>
-      <button id="grid-size">Change Grid Size</button>
+      <div class="container"></div>
     </div>
+    <footer>
+      built by <a href="https://github.com/Jarrell21">Jarrell Romero</a>
+    </footer>
   </body>
 </html>
