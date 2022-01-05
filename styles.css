@@ -85,13 +85,3 @@ button:hover {
 .wrapper:hover {
   transform: scale(1.1);
 }
-
-footer {
-  text-align: center;
-  font-size: 1.1em;
-  margin-top: 80px;
-}
-
-a {
-  color: black;
-}
